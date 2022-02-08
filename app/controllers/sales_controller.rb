@@ -12,11 +12,9 @@ class SalesController < ApplicationController
 
   # GET /sales/new
   def new
+    byebug
     @sale = Sale.new
-    @reservation = Reservation.find(params[:reservation_id])
-    respond_to do |format|
-      format.js {render 'new', layout: false}
-    end  
+    
   end
 
   # GET /sales/1/edit
@@ -25,8 +23,14 @@ class SalesController < ApplicationController
 
   # POST /sales or /sales.json
   def create
+    byebug
+    @reservation = Reservation.find(params[:reservation_id])
+    byebug
+    @sale = Sale.new(sale_params)
     @sale = Sale.new(sale_params)
 
+
+    
     respond_to do |format|
       if @sale.save
         format.html { redirect_to sale_url(@sale), notice: "Sale was successfully created." }
@@ -38,18 +42,7 @@ class SalesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /sales/1 or /sales/1.json
-  def update
-    respond_to do |format|
-      if @sale.update(sale_params)
-        format.html { redirect_to sale_url(@sale), notice: "Sale was successfully updated." }
-        format.json { render :show, status: :ok, location: @sale }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @sale.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+
 
   # DELETE /sales/1 or /sales/1.json
   def destroy

@@ -21,6 +21,7 @@ class ReservationsController < ApplicationController
 
   # POST /reservations or /reservations.json
   def create
+    
     @reservation = Reservation.new(reservation_params)
 
     respond_to do |format|
@@ -34,6 +35,24 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def purchase
+    byebug
+    buy = Sale.new(book: @book, user: current_user)
+    
+    byebug
+
+    update_status = Book.find(@book.id)
+    update_status.update(status: 'buyed')
+    byebug
+
+    
+      if buy.save!
+        @msg = 'comprado!'
+      else
+        @msg = 'Error de compra'
+      end
+
+  end
   # PATCH/PUT /reservations/1 or /reservations/1.json
   def update
     respond_to do |format|
@@ -49,7 +68,15 @@ class ReservationsController < ApplicationController
 
   # DELETE /reservations/1 or /reservations/1.json
   def destroy
+    id_book = Reservation.find(params[:id])
+    book_id = id_book.book_id
+    
+    update_status = Book.find(book_id)
+    update_status.update(status: 'available')
+
+    
     @reservation.destroy
+   
 
     respond_to do |format|
       format.html { redirect_to reservations_url, notice: "Reservation was successfully destroyed." }

@@ -61,13 +61,6 @@ class BooksController < ApplicationController
     end
   end
 
-  def create_petition
-
-    @book=Book.new(book_params)
-    @book.save
-    render json: {number: @book.id}
-
-  end
 
   def reserve
     

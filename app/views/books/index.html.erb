@@ -9,8 +9,10 @@
       <th>Description</th>
       <th>Price</th>
       <th>Status</th>
-      <th>User</th>
-      <th>Reservation</th>
+      <% if current_user %>
+         <th>User</th>
+        <th>Reservation</th>
+      <%end%>
       <th>show</th>
       <th>edit</th>
       <th>delete</th>
@@ -26,8 +28,9 @@
         <td class="text-center"><%= book.description %></td>
         <td class="text-center"><%= book.price %></td>
         <td class="text-center"><%= book.status %></td>
-        <td><%= book.user %></td>
          <% if current_user %>
+                 <td><%= book.user_id %></td>
+
               <td class="text-center"> <%= link_to 'Reserve this book', reserve_book_path(book), method: :post, remote: true %></td>
           <% end %>
         <td class="text-center"><%= link_to 'Show', book %></td>

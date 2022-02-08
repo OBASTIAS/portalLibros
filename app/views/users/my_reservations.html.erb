@@ -1,0 +1,28 @@
+<h1>Mis Reservas</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr class="text-center"> 
+      <th>Usuario</th>
+      <th>Titulo</th>
+      <th>Comprar</th>
+      <th>Deshechar</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td><%= reservation.user.email%></td> 
+        <td><%= reservation.book.title%></td> 
+        <td class="text-center"><%= link_to 'comprar', new_sale_path(reservation_id: reservation.id) %></td>
+        <td class="text-center"> <%= link_to 'eliminar reserva', reservation_path(reservation.id), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

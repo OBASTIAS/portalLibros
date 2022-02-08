@@ -13,12 +13,13 @@
 
   <div class="field">
     <%= form.label :paymentMethod %>
-    <%= form.number_field :paymentMethod %>
+    <%= form.select :payment_method , Sale.payment_methods.keys,{prompt: "select a paymentMethod"}%>
   </div>
 
   <div class="field">
     <%= form.label :reservation_id %>
     <%= form.text_field :reservation_id %>
+
   </div>
 
   <div class="actions">
